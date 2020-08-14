@@ -46,7 +46,7 @@ def main_loop():
         if len(cctv_list) == 0:
             print("Request IP Cctv Gagal ...")
         seq = seq + 1
-        print(f"seq : {seq} - {datetime.now().strftime('%H:%M:%S')}")
+        print(f"seq : {seq} - {datetime.now().strftime('%H:%M:%S WIB - %d %b')}")
         print(f"Mendapatkan {len(cctv_list)} IP CCTV ...")
         print(f"Memproses icmp ping ...")
         for ip_addr in cctv_list:
