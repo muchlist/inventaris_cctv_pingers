@@ -3,6 +3,7 @@ import queue
 import subprocess
 import threading
 import time
+from datetime import datetime
 
 from setting import NUM_PING, NUM_WORKER, BASE_URL, BRANCH, KEY, MINUTE
 from utils.output_translation import output_success
@@ -10,6 +11,8 @@ from utils.requester import Postman
 
 
 def main_loop():
+
+    seq = 0
     while True:
         plat = platform.system()
 
@@ -42,7 +45,10 @@ def main_loop():
         cctv_list = postman.get_ip_list()
         if len(cctv_list) == 0:
             print("Request IP Cctv Gagal ...")
-        print(f"Memulai ping ke {len(cctv_list)} IP CCTV ...")
+        seq = seq + 1
+        print(f"seq : {seq} - {datetime.now().strftime('%H:%M:%S')}")
+        print(f"Mendapatkan {len(cctv_list)} IP CCTV ...")
+        print(f"Memproses icmp ping ...")
         for ip_addr in cctv_list:
             pending.put(ip_addr)  # memasukkan ip address ke pending
 
@@ -76,7 +82,7 @@ def main_loop():
         # Post to server
         post_to_server(postman, ip_cctv_up, ip_cctv_half, ip_cctv_down)
 
-        print(f"Ulangi dalam {MINUTE} menit")
+        print(f"Mengulang dalam {MINUTE} menit")
         print("----------------------------")
         time.sleep(60 * MINUTE)
 

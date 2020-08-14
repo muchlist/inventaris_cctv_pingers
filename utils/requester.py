@@ -45,13 +45,3 @@ class Postman(object):
             return x.text
         else:
             return "Error"
-
-
-if __name__ == '__main__':
-    postman = Postman()
-    ip_list = postman.get_ip_list()
-    print(f"kumpulan ip nya {ip_list}")
-    if len(ip_list) == 0:
-        print("cctv kosong")
-    response = postman.post_ip_status(ip_list, 0)
-    print(response)
