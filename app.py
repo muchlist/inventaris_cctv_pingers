@@ -11,8 +11,10 @@ from utils.requester import Postman
 
 
 def main_loop():
-
     seq = 0
+    # Membuat objek postman
+    postman = Postman()
+
     while True:
         plat = platform.system()
 
@@ -30,8 +32,6 @@ def main_loop():
             workers.append(threading.Thread(
                 target=worker_func, args=(ping_args, pending, done)))
 
-        # Membuat objek postman
-        postman = Postman()
         postman.set_base_url(BASE_URL)
         postman.set_param_get({
             "key": KEY,
@@ -42,7 +42,7 @@ def main_loop():
         })
 
         # Masukkan alamat ke antrian pending
-        cctv_list = postman.get_ip_list()
+        cctv_list = postman.get_ip_list
         if len(cctv_list) == 0:
             print("Request IP Cctv Gagal ...")
         seq = seq + 1
